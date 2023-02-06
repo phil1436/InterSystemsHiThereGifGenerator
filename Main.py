@@ -31,8 +31,8 @@ for i in range(len(sys.argv)):
 name = input("Enter your name: ")
 
 # check if name is beween 2 and 10 characters
-while (len(name) < 2 or len(name) > 10):
-    print("Please enter a name between 2 and 10 characters")
+while (len(name) < 2 or len(name) > 15):
+    print("Please enter a name between 2 and 15 characters")
     name = input("Enter your name: ")
 
 print("Generating GIF", end="")
@@ -69,7 +69,6 @@ while (size_width < max_width - 30):
 
 px_per_letter = int(size_width / letters)
 
-print("size_width: " + str(size_width))
 # test image
 
 img = Image.open(template_file)
