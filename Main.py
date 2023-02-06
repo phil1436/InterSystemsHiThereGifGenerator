@@ -30,6 +30,9 @@ for i in range(len(sys.argv)):
     if (sys.argv[i] == "-h" or sys.argv[i] == "-hold"):
         hold = int(sys.argv[i+1])
         print("Hold: " + str(hold) + " frames")
+    if (sys.argv[i] == "-o" or sys.argv[i] == "-output"):
+        file_output_path = sys.argv[i+1]
+        print("Output: " + file_output_path)
 
 # get name from user
 name = input("Enter your name: ")
