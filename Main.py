@@ -9,8 +9,9 @@ VERSION = "0.0.1"
 template_file = "imgs/template.png"
 start_gif = "imgs/start.gif"
 end_gif = "imgs/end.gif"
-duration = 70
+duration = 80
 file_output_path = "out"
+hold = 10
 
 print("""
       *******************************************
@@ -26,6 +27,9 @@ for i in range(len(sys.argv)):
     if (sys.argv[i] == "-d" or sys.argv[i] == "-duration"):
         duration = int(sys.argv[i+1])
         print("Duration: " + str(duration))
+    if (sys.argv[i] == "-h" or sys.argv[i] == "-hold"):
+        hold = int(sys.argv[i+1])
+        print("Hold: " + str(hold) + " frames")
 
 # get name from user
 name = input("Enter your name: ")
@@ -38,62 +42,31 @@ while (len(name) < 2 or len(name) > 15):
 print("Generating GIF", end="")
 
 
-name_width = len(name) * 150
-im_width = 150
-total_width = name_width + im_width
 max_width = 900
 
-# 1px = 3/4pt
-
-letters = 3  # "I'm"
-for char in name:
-    if char.isupper():
-        letters += 1
-    elif char in ["I", "i", "l", "!", "t", "r", "j"]:
-        letters += 0.5
-    else:
-        letters += 1
 pt = 20
 # set font
 myFont = ImageFont.truetype('font/DINAlternate-Bold.ttf', pt)
 
 img = Image.open(template_file)
 
+width, height = img.size
+
 I1 = ImageDraw.Draw(img)
 
 size_width = I1.textlength("I'm " + name, myFont)
+
+# get the maximal font size
 while (size_width < max_width - 30):
     pt += 1
     myFont = ImageFont.truetype('font/DINAlternate-Bold.ttf', pt)
     size_width = I1.textlength("I'm " + name, myFont)
 
-px_per_letter = int(size_width / letters)
+# adjust height
+y = height / 2 - (I1.textbbox((0, 0), "I'm " + name, font=myFont)[3] / 2)
 
-# test image
-
-img = Image.open(template_file)
-I1 = ImageDraw.Draw(img)
-
-
-# get the center of the image
-width, height = img.size
-
-y = height / 2 - 100
-
-# add name
-I1.text((200, y), "I'm",
-        fill=(0, 181, 175), font=myFont)
-
-I1.text((200 + (3 * px_per_letter), y), name,
-        fill=(51, 54, 149), font=myFont)
-
-filename = "out/test.png"
-img.save(filename)
-
-# end test
 filenames = []
 name_frames = []
-
 
 # iterate through each character in name
 name_part = ""
@@ -107,11 +80,9 @@ for char in ["I", "'", "m"]:
     I1 = ImageDraw.Draw(img)
 
     # get the center of the image
-    width, height = img.size
 
     letters_width = I1.textlength(im_part, myFont)
 
-    y = height / 2 - 100
     x = width/2 - (letters_width / 2)
 
     # add name
@@ -141,7 +112,6 @@ for char in name:
     width, height = img.size
 
     letters_width = I1.textlength("I'm " + name_part, myFont)
-    y = height / 2 - 100
     x = width/2 - (letters_width / 2)
 
     # add "I'm"
@@ -175,8 +145,8 @@ print(".", end="")
 for frame in name_frames:
     frames.append(frame)
 
-# hold name for 10 frames
-for i in range(0, 10):
+# hold name for hold frames
+for i in range(0, hold):
     frames.append(frames[-1])
 
 # add inverted name frames
