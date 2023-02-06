@@ -1,4 +1,4 @@
-<img src = "resources/logo.png" width = "40%" alt = "Logo"/>
+<img src = "resources/logo.png" width = "50%" alt = "Logo"/>
 
 # InterSystems-HiThere-GIFGenerator
 
