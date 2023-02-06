@@ -37,13 +37,61 @@ while (len(name) < 2 or len(name) > 10):
 
 print("Generating GIF", end="")
 
+
 name_width = len(name) * 150
 im_width = 150
+total_width = name_width + im_width
 max_width = 900
 
-# set font
-myFont = ImageFont.truetype('font/DINAlternate-Bold.ttf', 200)
+# 1px = 3/4pt
 
+letters = 3  # "I'm"
+for char in name:
+    if char.isupper():
+        letters += 1
+    elif char in ["I", "i", "l", "!", "t", "r", "j"]:
+        letters += 0.5
+    else:
+        letters += 1
+pt = 20
+# set font
+myFont = ImageFont.truetype('font/DINAlternate-Bold.ttf', pt)
+
+img = Image.open(template_file)
+
+I1 = ImageDraw.Draw(img)
+
+size_width = I1.textlength("I'm " + name, myFont)
+while (size_width < max_width - 30):
+    pt += 1
+    myFont = ImageFont.truetype('font/DINAlternate-Bold.ttf', pt)
+    size_width = I1.textlength("I'm " + name, myFont)
+
+px_per_letter = int(size_width / letters)
+
+print("size_width: " + str(size_width))
+# test image
+
+img = Image.open(template_file)
+I1 = ImageDraw.Draw(img)
+
+
+# get the center of the image
+width, height = img.size
+
+y = height / 2 - 100
+
+# add name
+I1.text((200, y), "I'm",
+        fill=(0, 181, 175), font=myFont)
+
+I1.text((200 + (3 * px_per_letter), y), name,
+        fill=(51, 54, 149), font=myFont)
+
+filename = "out/test.png"
+img.save(filename)
+
+# end test
 filenames = []
 name_frames = []
 
@@ -52,8 +100,6 @@ name_frames = []
 name_part = ""
 im_part = ""
 counter = 1
-
-move_per_frame = 40
 
 # ad "I'm"
 for char in ["I", "'", "m"]:
@@ -64,8 +110,10 @@ for char in ["I", "'", "m"]:
     # get the center of the image
     width, height = img.size
 
+    letters_width = I1.textlength(im_part, myFont)
+
     y = height / 2 - 100
-    x = width/2 - (counter * move_per_frame)
+    x = width/2 - (letters_width / 2)
 
     # add name
     I1.text((x, y), im_part,
@@ -82,6 +130,8 @@ print(".", end="")
 
 counter = 1
 
+im_width = I1.textlength("I'm ", myFont)
+
 # add name
 for char in name:
     img = Image.open(template_file)
@@ -91,14 +141,16 @@ for char in name:
     # get the center of the image
     width, height = img.size
 
+    letters_width = I1.textlength("I'm " + name_part, myFont)
     y = height / 2 - 100
-    x = width/2 - (counter * move_per_frame)
+    x = width/2 - (letters_width / 2)
 
     # add "I'm"
-    I1.text((x - 270, y), "I`m", fill=(0, 181, 175), font=myFont)
+    I1.text((x, y), "I`m",
+            fill=(0, 181, 175), font=myFont)
 
     # add name
-    I1.text((x, y), name_part,
+    I1.text((x + im_width, y), name_part,
             fill=(51, 54, 149), font=myFont)
 
     filename = "out/name"+str(counter)+".png"
@@ -154,8 +206,8 @@ frames = None
 frames_inverted = None
 
 # delete generated images
-""" for filename in filenames:
-    os.remove(filename) """
+for filename in filenames:
+    os.remove(filename)
 
 print("GIF Generated!")
 print("You can find it here: " + fp_out)
