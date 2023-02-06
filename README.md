@@ -59,6 +59,14 @@ _Will hold the name for 20 frames:_
 python3 Main.py -hold 20
 ```
 
+### Output
+
+Change the output folder with the `output` property, followed by the path to the folder. Default is `out`.
+
+```bash
+python3 Main.py -output path/to/folder
+```
+
 ---
 
 ## Bugs
