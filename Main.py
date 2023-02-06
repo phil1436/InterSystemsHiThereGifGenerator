@@ -11,7 +11,7 @@ start_gif = "imgs/start.gif"
 end_gif = "imgs/end.gif"
 duration = 80
 file_output_path = "out"
-hold = 10
+hold = 15
 
 print("""
       *******************************************
