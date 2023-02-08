@@ -9,9 +9,10 @@ VERSION = "0.0.1"
 template_file = "imgs/template.png"
 start_gif = "imgs/start.gif"
 end_gif = "imgs/end.gif"
-duration = 80
 file_output_path = "out"
+duration = 80
 hold = 15
+max_width = 900
 
 print("""
       *******************************************
@@ -19,20 +20,25 @@ print("""
       *******************************************
       """)
 
-# check for arguments
-for i in range(len(sys.argv)):
-    if (sys.argv[i] == "-v" or sys.argv[i] == "-version"):
-        print("Version: " + VERSION)
-        quit()
-    if (sys.argv[i] == "-d" or sys.argv[i] == "-duration"):
-        duration = int(sys.argv[i+1])
-        print("Duration: " + str(duration))
-    if (sys.argv[i] == "-h" or sys.argv[i] == "-hold"):
-        hold = int(sys.argv[i+1])
-        print("Hold: " + str(hold) + " frames")
-    if (sys.argv[i] == "-o" or sys.argv[i] == "-output"):
-        file_output_path = sys.argv[i+1]
-        print("Output: " + file_output_path)
+
+def check_arguments():
+    # check for arguments
+    for i in range(len(sys.argv)):
+        if (sys.argv[i] == "-v" or sys.argv[i] == "-version"):
+            print("Version: " + VERSION)
+            quit()
+        if (sys.argv[i] == "-d" or sys.argv[i] == "-duration"):
+            duration = int(sys.argv[i+1])
+            print("Duration: " + str(duration))
+        if (sys.argv[i] == "-h" or sys.argv[i] == "-hold"):
+            hold = int(sys.argv[i+1])
+            print("Hold: " + str(hold) + " frames")
+        if (sys.argv[i] == "-o" or sys.argv[i] == "-output"):
+            file_output_path = sys.argv[i+1]
+            print("Output: " + file_output_path)
+
+
+check_arguments()
 
 # get name from user
 name = input("Enter your name: ")
@@ -44,17 +50,12 @@ while (len(name) < 2 or len(name) > 15):
 
 print("Generating GIF", end="")
 
-
-max_width = 900
-
 pt = 20
 # set font
 myFont = ImageFont.truetype('font/DINAlternate-Bold.ttf', pt)
 
 img = Image.open(template_file)
-
 width, height = img.size
-
 I1 = ImageDraw.Draw(img)
 
 size_width = I1.textlength("I'm " + name, myFont)
@@ -95,8 +96,9 @@ for char in ["I", "'", "m"]:
     filename = "out/Im"+str(counter)+".png"
     filenames.append(filename)
     # Save the edited image
-    img.save(filename)
-    name_frames.append(Image.open(filename))
+    # img.save(filename)
+    # name_frames.append(Image.open(filename))
+    name_frames.append(img)
     counter += 1
 
 print(".", end="")
@@ -127,9 +129,7 @@ for char in name:
 
     filename = "out/name"+str(counter)+".png"
     filenames.append(filename)
-    # Save the edited image
-    img.save(filename)
-    name_frames.append(Image.open(filename))
+    name_frames.append(img)
     counter += 1
 
 print(".", end="")
@@ -178,8 +178,8 @@ frames = None
 frames_inverted = None
 
 # delete generated images
-for filename in filenames:
-    os.remove(filename)
+""" for filename in filenames:
+    os.remove(filename) """
 
 print("GIF Generated!")
 print("You can find it here: " + fp_out)

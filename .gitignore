@@ -1,3 +1,4 @@
-node_modules/**
 ideas.md
 font/**
+Test.py
+__pycache__/**
