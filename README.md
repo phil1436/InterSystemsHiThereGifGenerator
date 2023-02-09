@@ -11,6 +11,7 @@ Generates a [InterSystems](https://www.intersystems.com/) HiThere Banner for you
 -   [Requirements](#requirements)
 -   [Usage](#usage)
 -   [Configuration](#configuration)
+-   [Custom Mode](#custom-mode)
 -   [Bugs](#bugs)
 -   [Release Notes](#release-notes)
 
@@ -20,6 +21,7 @@ Generates a [InterSystems](https://www.intersystems.com/) HiThere Banner for you
 
 -   [Python](https://www.python.org/) 3.7 or higher
 -   [Pillow](https://pypi.org/project/Pillow/) 9.2.0 or higher
+-   Download the _[DINAlternate-Bold.ttf](https://www.cufonfonts.com/font/din-alternate)_ and add it to the directory
 
 ---
 
@@ -66,6 +68,51 @@ Change the output folder with the `output` property, followed by the path to the
 ```bash
 python3 Main.py -output path/to/folder
 ```
+
+### Run in custom mode
+
+You can run the application in custom mode, where you can specify. This is done with the `custom` property, the program will then ask you for the text you want to display.
+
+```bash
+python3 Main.py -custom
+```
+
+---
+
+## Custom Mode
+
+To customize the text, you want to display, you can run the application in custom mode.
+
+```bash
+InterSystemsHiThereGenerator> python3 Main.py -custom
+
+      *******************************************
+      **** InterSystems-HiThere-GIFGenerator ****
+      *******************************************
+
+***Custom Mode***
+Part 1
+Enter first text (empty to stop): Part
+Enter second text (can be empty): One
+Part 2
+Enter first text (empty to stop): Part
+Enter second text (can be empty): Two
+Part 3
+Enter first text (empty to stop): Part
+Enter second text (can be empty): Three
+Part 4
+Enter first text (empty to stop):
+GIF Generated!
+You can find it here: out/PartOne.gif
+
+by phil1436
+```
+
+This will generate the following GIF:
+
+![CustomModeExample](resources/CustomModeExample.gif)
+
+> Tip: For full customization, you can also use the _[HiThereGenerator.py](HiThereGenerator.py)_ file directly. This file contains the `HTGIFGenerator` class, which can be used to generate the GIF. You can find an example in the _[Main.py](Main.py)_ file.
 
 ---
 
