@@ -27,7 +27,7 @@ Generates a [InterSystems](https://www.intersystems.com/) HiThere Banner for you
 
 ## Usage
 
-1.  Download the [latest release]() and extract it to a folder of your choice.
+1.  Download the [latest release](https://github.com/phil1436/InterSystemsHiThereGifGenerator/releases/latest) and extract it to a folder of your choice.
 2.  Open a terminal and navigate to the folder.
 3.  Run the following command:
 
