@@ -33,6 +33,7 @@ class HTGIFGenerator:
         self.background = path_to_background_image
         width, height = Image.open(path_to_background_image).size
         self.max_width = width
+        self.max_height = height
         self.start_gif = start_gif
         self.end_gif = end_gif
         if (file_output == None):
@@ -40,6 +41,7 @@ class HTGIFGenerator:
         else:
             self.file_output = file_output
         self.parts = []
+        self.default_font = None
 
     # change the duration of the gif
     def set_duration(self, duration: int):
@@ -65,9 +67,26 @@ class HTGIFGenerator:
     def set_max_width(self, max_width: int):
         self.max_width = max_width
 
+    # change the max height of the text
+    def set_max_height(self, max_height: int):
+        self.max_height = max_height
+
     # add a part to the gif
     def add_part(self, part: HTGIFPart):
         self.parts.append(part)
+
+    # add a part to the gif with default colors and the default font
+    def add_default_part(self, first: str, second: str = None, font: str = None):
+        if font == None:
+            font = self.default_font
+            if font == None:
+                raise ValueError(
+                    "You should set a default font or pass a font to the function!")
+        self.add_part(HTGIFPart(font, first, second))
+
+    # set and change the default font
+    def set_default_font(self, path_to_font_ttf: str):
+        self.default_font = path_to_font_ttf
 
     # reset the parts
     def reset(self):
@@ -99,6 +118,8 @@ class HTGIFGenerator:
             # add end part
             for img in part_imgs[::-1]:
                 frames.append(img)
+            frames.append(Image.open(self.background))
+            frames.append(Image.open(self.background))
 
         # add start gif
         if (self.end_gif != None):
@@ -120,14 +141,18 @@ class HTGIFGenerator:
         myFont = ImageFont.truetype(part.font, 1)
         width, height = img.size
         size_width = I1.textlength(part.to_string(), myFont)
+        size_height = I1.textbbox((0, 0), part.to_string(), font=myFont)[3]
         pt = 1
         # get the maximal font size
-        while (size_width < self.max_width - 30):
+        while size_width < self.max_width - 30 and size_height < self.max_height - 30:
             pt += 1
             myFont = ImageFont.truetype(part.font, pt)
             size_width = I1.textlength(part.to_string(), myFont)
+            size_height = I1.textbbox((0, 0), part.to_string(), font=myFont)[3]
 
         images = []
+
+        size_width = I1.textlength(part.to_string(), myFont)
 
         y = height / 2 - \
             (I1.textbbox((0, 0), part.to_string(), font=myFont)[3] / 2)
