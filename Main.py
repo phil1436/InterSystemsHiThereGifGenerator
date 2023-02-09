@@ -11,7 +11,7 @@ duration = 80
 hold = 15
 max_width = 900
 max_height = 270
-font = 'font/DINAlternate-Bold.ttf'
+font = 'DINAlternate-Bold.ttf'
 run_custom_mode = False
 
 print("""
