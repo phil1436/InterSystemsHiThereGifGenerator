@@ -112,7 +112,7 @@ This will generate the following GIF:
 
 ![CustomModeExample](resources/CustomModeExample.gif)
 
-> Tip: For full customization, you can also use the _[HiThereGenerator.py](HiThereGenerator.py)_ file directly. This file contains the `HTGIFGenerator` class, which can be used to generate the GIF. You can find an example in the _[Main.py](Main.py)_ file.
+> Tip: For full customization, you can also use the _[HiThereGIFGenerator.py](HiThereGIFGenerator.py)_ file directly. This file contains the `HTGIFGenerator` class, which can be used to generate the GIF. You can find an example in the _[Main.py](Main.py)_ file.
 
 ---
 
