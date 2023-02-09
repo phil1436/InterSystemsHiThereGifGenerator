@@ -39,6 +39,14 @@ python3 Main.py
 
 ## Configuration
 
+### Help
+
+To get a list of all available properties, run the following command:
+
+```bash
+python3 Main.py -help
+```
+
 ### Duration
 
 The duration of the GIF can be configured with the `duration` property, followed by the duration, where a lower value means a faster animation. Default is 80.
@@ -69,6 +77,14 @@ Change the output folder with the `output` property, followed by the path to the
 python3 Main.py -output path/to/folder
 ```
 
+### Whitespaces
+
+Change the whitespaces with the `whitespaces` property, followed by `on` or `off`. Default is `on`.
+
+```bash
+python3 Main.py -whitespaces off
+```
+
 ### Run in custom mode
 
 You can run the application in custom mode, where you can specify. This is done with the `custom` property, the program will then ask you for the text you want to display.
@@ -84,7 +100,7 @@ python3 Main.py -custom
 To customize the text, you want to display, you can run the application in custom mode.
 
 ```bash
-InterSystemsHiThereGenerator> python3 Main.py -custom
+InterSystemsHiThereGenerator> python3 Main.py -custom -whitespaces on
 
       *******************************************
       **** InterSystems-HiThere-GIFGenerator ****
