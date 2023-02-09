@@ -23,7 +23,7 @@ class HTGIFPart:
     def to_string(self):
         if (self.second == None):
             return self.first
-        return self.first + " " + self.second
+        return self.first + self.second
 
 
 class HTGIFGenerator:
@@ -172,7 +172,7 @@ class HTGIFGenerator:
 
             images.append(img)
 
-        first_width = I1.textlength(first + " ", myFont)
+        first_width = I1.textlength(first, myFont)
 
         if (part.second == None):
             return images
@@ -186,7 +186,7 @@ class HTGIFGenerator:
             # get the center of the image
             width, height = img.size
 
-            letters_width = I1.textlength(first + " " + second, myFont)
+            letters_width = I1.textlength(first + second, myFont)
             x = width/2 - (letters_width / 2)
 
             I1.text((x, y), first,

@@ -3,6 +3,12 @@ from HiThereGIFGenerator import HTGIFGenerator, HTGIFPart
 
 VERSION = "0.0.1"
 
+print("""
+      *******************************************
+      **** InterSystems-HiThere-GIFGenerator ****
+      *******************************************
+      """)
+
 template_file = "imgs/template.png"
 start_gif = "imgs/start.gif"
 end_gif = "imgs/end.gif"
@@ -13,30 +19,50 @@ max_width = 900
 max_height = 270
 font = 'DINAlternate-Bold.ttf'
 run_custom_mode = False
+whitespace = " "
 
-print("""
-      *******************************************
-      **** InterSystems-HiThere-GIFGenerator ****
-      *******************************************
-      """)
 
 # check for arguments
 for i in range(len(sys.argv)):
-    if (sys.argv[i] == "-v" or sys.argv[i] == "-version"):
+    arg = sys.argv[i].lower()
+    if (arg == "-v" or arg == "-version"):
         print("Version: " + VERSION)
+        print("")
+        print("by phil1436")
         quit()
-    if (sys.argv[i] == "-d" or sys.argv[i] == "-duration"):
+    if (arg == "-help"):
+        print("""
+              
+    Configurations:
+    
+    [-v|-version] - show version
+    [-h|-hold] [int] - set the hold time
+    [-d|-duration] [int] - set the duration time
+    [-o|-output] [path] - set the output path
+    [-c|-custom] - run in custom mode
+    [-w|-whitespaces|-whitespace] [on|off] - set if whitespaces should be used
+              """)
+        print("")
+        print("by phil1436")
+        quit()
+    if (arg == "-d" or arg == "-duration"):
         duration = int(sys.argv[i+1])
         print("Duration: " + str(duration))
-    if (sys.argv[i] == "-h" or sys.argv[i] == "-hold"):
+    if (arg == "-h" or arg == "-hold"):
         hold = int(sys.argv[i+1])
         print("Hold: " + str(hold) + " frames")
-    if (sys.argv[i] == "-o" or sys.argv[i] == "-output"):
+    if (arg == "-o" or arg == "-output"):
         file_output_path = sys.argv[i+1]
         print("Output: " + file_output_path)
-    if (sys.argv[i] == "-c" or sys.argv[i] == "-custom"):
+    if (arg == "-c" or arg == "-custom"):
         run_custom_mode = True
         print("***Custom Mode***")
+    if (arg == "-w" or arg == "-whitespaces" or arg == "-whitespace"):
+        if (sys.argv[i+1].lower() == "off"):
+            whitespace = ""
+            print("Whitespaces: off")
+        else:
+            print("Whitespaces: on")
 
 
 # generate gif
@@ -62,8 +88,8 @@ if not run_custom_mode:
 
     generator.set_file_output(fp_out)
 
-    generator.add_default_part("Hi", "There!")
-    generator.add_default_part("I'm", name)
+    generator.add_default_part("Hi" + whitespace, "There!")
+    generator.add_default_part("I'm" + whitespace,  name)
 else:
     counter = 1
     fp_out = file_output_path+"/"
@@ -80,7 +106,7 @@ else:
 
         if second == "":
             second = None
-        generator.add_default_part(first, second)
+        generator.add_default_part(first + whitespace, second)
         counter += 1
 
 generator.generate()
