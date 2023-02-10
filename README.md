@@ -59,6 +59,16 @@ python3 Main.py -duration 100
 
 > **Note:** The duration is not the same as the duration of the GIF. The duration is the time between each frame, while the GIF duration is the time between the first and the last frame.
 
+### Hashtag
+
+Add the hashtag _**#ItIsNotJustAJob**_ to the end with the `hashtag` property.
+
+```bash
+python3 Main.py -hashtag
+```
+
+>
+
 ### Hold
 
 How long your name will be displayed can be configured with the `hold` property, followed by the number of frames. Default is 15.
@@ -67,6 +77,14 @@ _Will hold the name for 20 frames:_
 
 ```bash
 python3 Main.py -hold 20
+```
+
+## Font
+
+Change the font with the `font` property, followed by the path to the font. Default is `DINAlternate-Bold.ttf`.
+
+```bash
+python3 Main.py -font path/to/font.ttf
 ```
 
 ### Output
@@ -140,9 +158,9 @@ This will generate the following GIF:
 
 ## [Release Notes](https://github.com/phil1436/InterSystemsHiThereGifGenerator/blob/master/CHANGELOG.md)
 
-### [v0.0.1](https://github.com/phil1436/InterSystemsHiThereGifGenerator/tree/0.0.1)
+### [v0.0.2](https://github.com/phil1436/InterSystemsHiThereGifGenerator/tree/0.0.2)
 
--   _Initial release_
+### [v0.0.1](https://github.com/phil1436/InterSystemsHiThereGifGenerator/tree/0.0.1)
 
 ---
 

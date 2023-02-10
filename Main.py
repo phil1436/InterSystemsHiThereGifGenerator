@@ -1,7 +1,7 @@
 import sys
 from HiThereGIFGenerator import HTGIFGenerator, HTGIFPart
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 print("""
       *******************************************
@@ -20,7 +20,7 @@ max_height = 270
 font = 'DINAlternate-Bold.ttf'
 run_custom_mode = False
 whitespace = " "
-
+add_hashtag = False
 
 # check for arguments
 for i in range(len(sys.argv)):
@@ -39,8 +39,10 @@ for i in range(len(sys.argv)):
     [-h|-hold] [int] - set the hold time
     [-d|-duration] [int] - set the duration time
     [-o|-output] [path] - set the output path
+    [-f|-font] [path_to_ttf_file] - set the font, by referencing a ttf file
     [-c|-custom] - run in custom mode
     [-w|-whitespaces|-whitespace] [on|off] - set if whitespaces should be used
+    [-hashtag|-itisnotjustajob] - adds the hashtag #ItIsNotJustAJob to the end of the gif
               """)
         print("")
         print("by phil1436")
@@ -63,6 +65,10 @@ for i in range(len(sys.argv)):
             print("Whitespaces: off")
         else:
             print("Whitespaces: on")
+    if (arg == "-hashtag" or arg == "-itisnotjustajob"):
+        add_hashtag = True
+    if (arg == "-f" or arg == "-font"):
+        font = sys.argv[i+1]
 
 
 # generate gif
@@ -108,6 +114,10 @@ else:
             second = None
         generator.add_default_part(first + whitespace, second)
         counter += 1
+
+if (add_hashtag):
+    generator.add_default_part("#ItIsNot", "JustAJob")
+
 
 generator.generate()
 
